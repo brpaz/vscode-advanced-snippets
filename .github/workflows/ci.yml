@@ -1,0 +1,105 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  release:
+    types:
+      - published
+
+env:
+  CI: "true"
+
+jobs:
+  build-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install depdendencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint Code
+        run: yarn lint
+
+      - name: Compile
+        run: yarn compile
+
+      - name: Unit Tests
+        run: yarn test
+
+      - name: Upload Code coverage report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Code Coverage report
+          path: reports/coverage/lcov-report
+
+      - name: Upload Jest Test Results report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Test report
+          path: reports/jest
+
+  release:
+    name: Release
+    needs: build-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    steps:
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Package Extension
+        run: yarn package  --no-git-tag-version $VERSION
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+
+      - name: Upload release binaries
+        uses: alexellis/upload-assets@0.4.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          asset_paths: '["./dist/*.vsix"]'
+
+      - name: Publish to Marketplace
+        run: yarn publish --no-git-tag-version $VERSION
+        env:
+          VSCE_PATH: ${{ secrets.VSCE_TOKEN }}
+
+      - name: Update Changelog
+        uses: stefanzweifel/changelog-updater-action@v1
+        with:
+          latest-version: ${{ github.event.release.name }}
+          release-notes: ${{ github.event.release.body }}
+
+      - name: Set release commit message
+        id: release_commit_message
+        run: |
+          echo "commit_message=chore(release): bump version ${RELEASE_TAG}" >> $GITHUB_OUTPUT
+
+      - name: Commit updated Changelog and Package.json
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: main
+          commit_message: "${{ steps.release_commit_message.outputs.commit_message }}"
+          file_pattern: "CHANGELOG.md package.json"

@@ -1,0 +1,34 @@
+name: Validate Docs
+on:
+  schedule:
+    - cron: 0 9 * * 6 # Every saturday at 9am
+
+permissions:
+  issues: write
+  contents: read
+jobs:
+  validate-docs:
+    name: Validate Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Install depdendencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run Docs Validation
+        run: yarn validate-docs
+
+      - name: Create Issue
+        if: failure()
+        uses: dacbd/create-issue-action@main
+        with:
+          title: Some docs are broken
+          body: |
+            ### Context
+            [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          assignees: ${{ github.actor }}
+          labels: "broken-docs"
+          token: ${{ github.token }}
