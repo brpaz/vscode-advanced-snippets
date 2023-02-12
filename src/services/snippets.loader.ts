@@ -29,7 +29,7 @@ export interface LoadResult {
 
 export interface SnippetsLoader {
   load(): LoadResult;
-  persist(snippets: Snippet): void;
+  persist(snippets: Snippet): Snippet;
 }
 
 export class FileSnippetsLoader implements SnippetsLoader {
@@ -57,7 +57,7 @@ export class FileSnippetsLoader implements SnippetsLoader {
     return { folders, snippets };
   }
 
-  persist(snippet: Snippet): void {
+  persist(snippet: Snippet): Snippet {
     const data: SnippetYamlFile = {
       apiVersion: 'vscode-snippets.brunopaz.dev/v1',
       kind: 'Snippet',
@@ -79,7 +79,9 @@ export class FileSnippetsLoader implements SnippetsLoader {
       },
     };
 
-    fs.writeFileSync(path.join(snippet.getFolder().getName(), `${snippet.getId()}.yaml`), yaml.stringify(data));
+    fs.writeFileSync(snippet.getPath(), yaml.stringify(data));
+
+    return snippet;
   }
 
   private getFolders(): fs.Dirent[] {

@@ -8,4 +8,5 @@ export enum Commands {
   InsertSnippet = `advanced-snippets.insertSnippet`,
   CreateFolder = `advanced-snippets.createFolder`,
   DeleteFolder = `advanced-snippets.deleteFolder`,
+  SearchSnippets = `advanced-snippets.searchSnippets`,
 }

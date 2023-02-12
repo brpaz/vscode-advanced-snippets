@@ -1,41 +1,29 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
-enum ItemType {
-  Folder = 'folder',
-  File = 'file',
-}
+import { Commands } from '../commands/commands';
 
-export type TreeItem = SnippetTreeItem | FolderTreeItem;
+import { Snippet, SnippetFolder } from '../domain/snippet';
 
 export class SnippetTreeItem extends vscode.TreeItem {
-  constructor(public readonly label: string, private type: ItemType, private resourcesPath: string) {
-    const collapsibleState =
-      type === ItemType.Folder ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None;
+  constructor(readonly element: Snippet | SnippetFolder) {
+    super(element.getName());
 
-    super(label, collapsibleState);
-    this.contextValue = ItemType.Folder ? 'snippetFolder' : 'snippetFile';
-    this.iconPath = {
-      light: path.join(resourcesPath, 'icons', 'light', `${type}.svg`),
-      dark: path.join(resourcesPath, 'icons', 'dark', `${type}.svg`),
-    };
+    this.contextValue = element instanceof SnippetFolder ? 'snippetFolder' : 'snippetFile';
+    this.collapsibleState =
+      element instanceof SnippetFolder
+        ? vscode.TreeItemCollapsibleState.Collapsed
+        : vscode.TreeItemCollapsibleState.None;
 
-    /*if (type === ItemType.File) {
+    if (element instanceof SnippetFolder) {
       this.command = {
-        title: 'Insert Snippet',
-        command: Commands.InsertSnippet,
-        arguments: [this.label],
+        title: 'Delete Folder',
+        command: Commands.DeleteFolder,
+        arguments: [element],
       };
-    }*/
-  }
-}
+    }
 
-export class FolderTreeItem extends vscode.TreeItem {
-  constructor(public readonly label: string, private resourcesPath: string) {
-    super(label, vscode.TreeItemCollapsibleState.Collapsed);
-    this.contextValue = 'snippetFolder';
-    this.iconPath = {
-      light: path.join(resourcesPath, 'icons', 'light', 'folder.svg'),
-      dark: path.join(resourcesPath, 'icons', 'dark', 'folder.svg'),
-    };
+    // TODO actions
+    // edit snippet -> open yaml on editor.
+    // delete snippet
+    // folder -> create snippet.
   }
 }

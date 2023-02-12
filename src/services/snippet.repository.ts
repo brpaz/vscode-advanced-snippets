@@ -3,7 +3,6 @@ import * as path from 'path';
 import { SnippetsLoader } from './snippets.loader';
 import { Snippet, SnippetFolder } from '../domain/snippet';
 
-// TODO create interface
 export default class SnippetsRepository {
   private readonly DEFAULT_FOLDER_NAME = 'Default';
 
@@ -22,7 +21,15 @@ export default class SnippetsRepository {
     this.ensureSnippetsRoot();
     this.ensureDefaultFolders();
 
-    const { folders, snippets } = loader.load();
+    this.loadData();
+  }
+
+  getRootPath(): string {
+    return this.snippetsRoot;
+  }
+
+  loadData(): void {
+    const { folders, snippets } = this.snippetsLoader.load();
 
     this.folders = folders;
     this.snippets = snippets;
@@ -50,7 +57,7 @@ export default class SnippetsRepository {
       fs.mkdirSync(folderPath);
     }
 
-    this.snippetsLoader.persist(snippet);
+    snippet = this.snippetsLoader.persist(snippet);
     this.snippets.push(snippet);
   }
 
@@ -59,7 +66,9 @@ export default class SnippetsRepository {
   }
 
   delete(snippet: Snippet): void {
-    console.log('delete');
+    fs.rmSync(snippet.getPath());
+
+    this.snippets = this.snippets.filter((s) => s.getId() !== snippet.getId());
   }
 
   createFolder(folderName: string): SnippetFolder {
@@ -71,6 +80,13 @@ export default class SnippetsRepository {
     this.folders.push(newFolder);
 
     return newFolder;
+  }
+
+  deleteFolder(folder: SnippetFolder) {
+    const folderPath = `${this.snippetsRoot}/${folder.getName()}`;
+    fs.rmdirSync(folderPath);
+
+    this.snippetsLoader.load();
   }
 
   private ensureSnippetsRoot(): void {

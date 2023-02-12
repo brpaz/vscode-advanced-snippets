@@ -67,6 +67,22 @@
         {
           "command": "advanced-snippets.deleteFolder",
           "when": "view == snippetsTreeView && viewItem == snippetFolder"
+        },
+        {
+          "command": "advanced-snippets.createSnippet",
+          "when": "view == snippetsTreeView && viewItem == snippetFolder"
+        },
+        {
+          "command": "advanced-snippets.insertSnippet",
+          "when": "view == snippetsTreeView && viewItem == snippetFile"
+        },
+        {
+          "command": "advanced-snippets.editSnippet",
+          "when": "view == snippetsTreeView && viewItem == snippetFile"
+        },
+        {
+          "command": "advanced-snippets.deleteSnippet",
+          "when": "view == snippetsTreeView && viewItem == snippetFile"
         }
       ],
       "editor/context": [
@@ -115,7 +131,32 @@
         "command": "advanced-snippets.insertSnippet",
         "title": "Insert Snippet",
         "category": "Advanced Snippets",
-        "icon": "$(add)"
+        "icon": "$(add)",
+        "hidden": true
+      },
+      {
+        "command": "advanced-snippets.editSnippet",
+        "title": "Edit Snippet",
+        "category": "Advanced Snippets",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "advanced-snippets.deleteSnippet",
+        "title": "Delete Snippet",
+        "category": "Advanced Snippets",
+        "icon": "$(delete)",
+        "hidden": true
+      },
+      {
+        "command": "advanced-snippets.searchSnippets",
+        "title": "Search Snippets",
+        "category": "Advanced Snippets"
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": ".snippet.yaml",
+        "url": "./schemas/snippet.schema.json"
       }
     ]
   },
@@ -131,9 +172,8 @@
     "test": "jest",
     "test:report:jest": "serve ./reports/jest",
     "test:report:coverage": "serve ./reports/coverage/lcov-report",
-    "package": "rimraf dist &&mkdir -p dist && vsce package -o dist/",
-    "release": "vsce publish -i dist/*.vsix",
-    "validate-docs": "npx ts-node src/scripts/checkBrokenDocs.ts"
+    "package": "rimraf dist && mkdir -p dist && vsce package -o dist/",
+    "release": "vsce publish -i dist/*.vsix"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
@@ -143,6 +183,7 @@
     "@types/node": "^16.18.11",
     "@types/node-fetch": "^2.6.2",
     "@types/node-fetch-cache": "^3.0.0",
+    "@types/picomatch": "^2.3.0",
     "@types/tmp": "^0.2.3",
     "@types/uuid": "^9.0.0",
     "@types/vscode": "^1.52.0",
@@ -184,6 +225,7 @@
     "glob-promise": "^6.0.2",
     "node-fetch": "2",
     "node-fetch-cache": "^3.0.5",
+    "picomatch": "^2.3.1",
     "uuid": "^9.0.0",
     "yaml": "^2.2.1"
   }

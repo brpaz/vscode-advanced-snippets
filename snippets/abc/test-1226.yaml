@@ -1,9 +1,0 @@
-apiVersion: snippets.brunopaz.dev/v1
-kind: Snippet
-metadata:
-  name: my-snippet
-spec:
-  body: |
-    console.log("Hello world")
-  conditions:
-    language: javascript

@@ -30,5 +30,7 @@ export default class CreateFolderCommand {
 
     this.snippetsRepository.createFolder(folderName);
     this.snippetsTreeDataProvider.refresh();
+
+    window.showInformationMessage(`Folder ${folderName} was created successfully`);
   }
 }
