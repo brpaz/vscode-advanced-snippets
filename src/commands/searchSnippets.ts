@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import { Snippet } from '../domain/snippet';
-import SnippetsRepository from '../services/snippet.repository';
-import { ISearch } from '../services/snippet.search';
+import { Matcher } from '../services/matcher/snippets.matcher';
 
 class SearchQuickPickItem implements vscode.QuickPickItem {
   snippet: Snippet;
@@ -12,13 +11,13 @@ class SearchQuickPickItem implements vscode.QuickPickItem {
   constructor(snippet: Snippet, rootPath: string) {
     this.snippet = snippet;
     this.label = snippet.getName();
-    this.detail = snippet.getFolder().getPath().replace(rootPath, '').replace(/\/$/, '');
+    this.detail = snippet.getFolder().getPath().replace(rootPath, '').replace(/\/$/, '') || '';
     this.description = snippet.getLanguage();
   }
 }
 
 export default class SearchSnippetsCommand {
-  constructor(private searchService: ISearch) {}
+  constructor(private searchService: Matcher) {}
 
   async execute() {
     const activeEditor = vscode.window.activeTextEditor;
@@ -32,13 +31,12 @@ export default class SearchSnippetsCommand {
 
     const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
 
-    const snippets = this.searchService.search(document);
+    const snippets = this.searchService.match(document, workspaceFolder?.uri.fsPath || '');
 
     const pickItems = snippets.map((snippet) => new SearchQuickPickItem(snippet, ''));
 
     const selectedItem = await vscode.window.showQuickPick(pickItems, {
-      matchOnDescription: true,
-      matchOnDetail: true,
+      ignoreFocusOut: true,
       placeHolder: 'Search for a snippet',
     });
 

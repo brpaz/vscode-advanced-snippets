@@ -45,6 +45,12 @@ jobs:
           name: Code Coverage report
           path: reports/coverage/lcov-report
 
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./reports/coverage/lcov.info
+
       - name: Upload Jest Test Results report
         uses: actions/upload-artifact@v3
         if: always()
@@ -57,6 +63,11 @@ jobs:
     needs: build-test
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
+    permissions:
+      contents: write
+      packages: write
+    env:
+      VERSION: ${{ github.event.release.tag_name }}
     steps:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
@@ -69,22 +80,23 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Compile
+        run: yarn compile
+
       - name: Package Extension
         run: yarn package  --no-git-tag-version $VERSION
-        env:
-          VERSION: ${{ github.event.release.tag_name }}
 
       - name: Upload release binaries
         uses: alexellis/upload-assets@0.4.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: '["./dist/*.vsix"]'
+          asset_paths: '["./dist/*"]'
 
       - name: Publish to Marketplace
-        run: yarn publish --no-git-tag-version $VERSION
+        run: yarn vsce:publish
         env:
-          VSCE_PATH: ${{ secrets.VSCE_TOKEN }}
+          VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
 
       - name: Update Changelog
         uses: stefanzweifel/changelog-updater-action@v1
@@ -95,7 +107,7 @@ jobs:
       - name: Set release commit message
         id: release_commit_message
         run: |
-          echo "commit_message=chore(release): bump version ${RELEASE_TAG}" >> $GITHUB_OUTPUT
+          echo "commit_message=chore(release): bump version ${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Commit updated Changelog and Package.json
         uses: stefanzweifel/git-auto-commit-action@v4

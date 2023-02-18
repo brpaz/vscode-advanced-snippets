@@ -1,16 +1,27 @@
 # VSCode Advanced snippets
 
-> [VSCode](http://code.visualstudio.com) extension to manage snippets in an easy way.
+> A better way to manage [VSCode](http://code.visualstudio.com) code snippets.
 
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brpaz/vscode-docsearch/CI?style=for-the-badge)]()
-[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/brpaz.vscode-docsearch?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=brpaz.docsearch)
-[![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/b?style=for-the-badge)](https://img.shields.io/visual-studio-marketplace/i/brpaz.docsearch?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=brpaz.vscode-docsearch)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brpaz/vscode-advanced-snippets/CI?style=for-the-badge)]()
+[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/brpaz.vscode-advanced-snippets?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=brpaz.advanced-snippets)
+[![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/b?style=for-the-badge)](https://img.shields.io/visual-studio-marketplace/i/brpaz.advanced-snippets?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=brpaz.vscode-advanced-snippets)
 
+
+## Motivation
+
+Snippets are a great way to be more productive and code faster. VScode built-in snippets are great, but they have some limitions, like:
+
+- The JSON snippet format is hard to manage.
+- There is not an interface to see all your snippets at a glance and create new ones.
+- The "context" is limited. You can only specify spippets by language and not by file path for example. I don´t want to see `dependabot.yml` snippets, if I am not in a `dependabot.yml` file.
+
+This extensions aims to improve these issues.
 
 ## Demo
 
 ![Extension Demo](demo.gif)
+
 
 ## Features
 
@@ -39,7 +50,6 @@ spec:
 
 ## Getting started
 
-
 ### Installation
 
 Launch VS Code Quick Open (`Ctrl+P`), paste the following command, and press enter.
@@ -52,13 +62,10 @@ ext install brpaz.vscode-advanced.snippets
 
 ### Creating a snippet
 
-This extension have 3 different ways to create a snippet:
+This extension have 2 different ways to create a snippet:
 
-- Using the `create snippet command`
-- Create from the existing selection.
-- From the Explorer view.
-
-A
+- Create from the existing selection. (using the "Create snippet from selection context menu")
+- From the Explorer view, by right clicking on a folder.
 
 
 
@@ -99,9 +106,6 @@ Or if you prefer a one time donation to the project, you can simple:
 <a href="https://www.buymeacoffee.com/Z1Bu6asGV" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 
-## Disclaimer
-
-The default documentation included in this extension contains a few API keys and APP Ids for Aloglia DocSearch projects. They are publically avaibable and not secret at all.
 
 ## 📝 License
 
@@ -110,4 +114,4 @@ Copyright © 2022 [Bruno Paz](https://github.com/brpaz).
 
 This project is [MIT](https://opensource.org/licenses/MIT) licensed.
 
-<a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Vectors Market - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/coding" title="coding icons">Coding icons created by Freepik - Flaticon</a>

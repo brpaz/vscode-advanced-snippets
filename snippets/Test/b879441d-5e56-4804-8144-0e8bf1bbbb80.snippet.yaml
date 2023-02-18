@@ -1,0 +1,14 @@
+apiVersion: vscode-snippets.brunopaz.dev/v1
+kind: Snippet
+metadata:
+  uid: b879441d-5e56-4804-8144-0e8bf1bbbb80
+  name: ddsfsd
+spec:
+  body: "
+
+    \        replace this text with your snippet body
+
+    \      "
+  conditions:
+    language: abap
+    file_patterns: []

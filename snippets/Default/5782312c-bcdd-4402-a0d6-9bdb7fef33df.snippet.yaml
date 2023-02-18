@@ -1,0 +1,11 @@
+apiVersion: vscode-snippets.brunopaz.dev/v1
+kind: Snippet
+metadata:
+  uid: 5782312c-bcdd-4402-a0d6-9bdb7fef33df
+  name: test
+spec:
+  body: const myString = `This is a multiline string.`;  const newString =
+    myString.replace(/\n/g, '\\n');  console.log(newString);
+  conditions:
+    language: abap
+    file_patterns: []

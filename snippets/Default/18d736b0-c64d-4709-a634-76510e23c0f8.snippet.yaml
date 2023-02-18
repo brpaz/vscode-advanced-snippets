@@ -1,0 +1,23 @@
+apiVersion: vscode-snippets.brunopaz.dev/v1
+kind: Snippet
+metadata:
+  uid: 18d736b0-c64d-4709-a634-76510e23c0f8
+  name: "xpto"
+spec:
+  body:
+    "fdimport * as vscode from 'vscode';  // Get the active text editor const
+    editor = vscode.window.activeTextEditor; if (!editor) {     return; }  //
+    Get the position of the cursor in the editor const position =
+    editor.selection.active;  // Create a new TextEditorEdit object const edit =
+    new vscode.TextEdit();  // Create a new input box to get the snippet content
+    const snippetContentBox = vscode.window.createInputBox();
+    snippetContentBox.title = 'Add Snippet'; snippetContentBox.prompt = 'Enter
+    the snippet content'; snippetContentBox.placeholder = 'Paste your snippet
+    content here'; snippetContentBox.onDidAccept(async () => {     const
+    snippetContent = snippetContentBox.value;      // Apply the snippet content
+    to the editor     await editor.edit((editorEdit: vscode.TextEditorEdit) =>
+    {         editorEdit.insert(position, snippetContent);     });      // Hide
+    the input box     snippetContentBox.hide(); }); snippetContentBox.show();"
+  conditions:
+    language: bibtext
+    file_patterns: []

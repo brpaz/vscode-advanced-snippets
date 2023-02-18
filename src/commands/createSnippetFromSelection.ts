@@ -1,21 +1,11 @@
-import { QuickPickItem, window, QuickPickItemKind } from 'vscode';
-import { Snippet, SnippetFolder } from '../domain/snippet';
-import SnippetsRepository from '../services/snippet.repository';
-
-export class FolderQuickPickItem implements QuickPickItem {
-  folder: SnippetFolder;
-  label: string;
-  isNew: boolean;
-
-  constructor(folder: SnippetFolder) {
-    this.folder = folder;
-    this.label = folder.getName();
-    this.isNew = false;
-  }
-}
+import { window, QuickPickItemKind } from 'vscode';
+import { SnippetFolder } from '../domain/folder';
+import { Snippet } from '../domain/snippet';
+import SnippetsFileSystemRepository from '../services/snippetsRepository';
+import { FolderQuickPickItem } from '../ui/folderQuickPick';
 
 export default class CreateSnippetFromSelectionCommand {
-  constructor(private snippetsRepository: SnippetsRepository) {}
+  constructor(private snippetsRepository: SnippetsFileSystemRepository) {}
   async execute() {
     const editor = window.activeTextEditor;
     if (editor === undefined) {
@@ -42,18 +32,21 @@ export default class CreateSnippetFromSelectionCommand {
       return;
     }
 
-    const snippet = new Snippet(snippetName, editor.document.getText(selection), selectedFolder, {
-      language: editor.document.languageId,
+    const snippet = Snippet.create({
+      name: snippetName,
+      body: editor.document.getText(selection),
+      folder: selectedFolder,
+      conditions: {
+        language: editor.document.languageId,
+      },
     });
-
     this.snippetsRepository.save(snippet);
   }
 
   private async promptForName(): Promise<string | undefined> {
     return await window.showInputBox({
-      title: 'Create snippet',
       prompt: 'Enter snippet name',
-      placeHolder: 'My awesome snippet',
+      ignoreFocusOut: true,
       validateInput: (text: string) => {
         if (text.length === 0) {
           return 'Snippet name cannot be empty';
@@ -94,7 +87,6 @@ export default class CreateSnippetFromSelectionCommand {
         title: 'Create folder',
         prompt: 'Enter folder name',
         placeHolder: 'My awesome folder',
-
         validateInput: (text: string) => {
           if (text.length === 0) {
             return 'Folder name cannot be empty';
@@ -108,7 +100,7 @@ export default class CreateSnippetFromSelectionCommand {
         return;
       }
 
-      selectedSnippetFolder = new SnippetFolder(folderName, '');
+      selectedSnippetFolder = new SnippetFolder(folderName, `${this.snippetsRepository.getRootPath()}/${folderName}`);
     } else {
       selectedSnippetFolder = selected.folder;
     }

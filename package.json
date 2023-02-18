@@ -81,6 +81,10 @@
           "when": "view == snippetsTreeView && viewItem == snippetFile"
         },
         {
+          "command": "advanced-snippets.moveSnippet",
+          "when": "view == snippetsTreeView && viewItem == snippetFile"
+        },
+        {
           "command": "advanced-snippets.deleteSnippet",
           "when": "view == snippetsTreeView && viewItem == snippetFile"
         }
@@ -128,17 +132,17 @@
         "category": "Advanced Snippets"
       },
       {
-        "command": "advanced-snippets.insertSnippet",
-        "title": "Insert Snippet",
-        "category": "Advanced Snippets",
-        "icon": "$(add)",
-        "hidden": true
-      },
-      {
         "command": "advanced-snippets.editSnippet",
         "title": "Edit Snippet",
         "category": "Advanced Snippets",
         "icon": "$(edit)"
+      },
+      {
+        "command": "advanced-snippets.moveSnippet",
+        "title": "Move Snippet",
+        "category": "Advanced Snippets",
+        "icon": "$(move)",
+        "hidden": true
       },
       {
         "command": "advanced-snippets.deleteSnippet",
@@ -148,14 +152,38 @@
         "hidden": true
       },
       {
+        "command": "advanced-snippets.insertSnippet",
+        "title": "Insert Snippet",
+        "category": "Advanced Snippets",
+        "icon": "$(add)",
+        "hidden": true
+      },
+      {
         "command": "advanced-snippets.searchSnippets",
         "title": "Search Snippets",
         "category": "Advanced Snippets"
       }
     ],
+    "configuration": [
+      {
+        "title": "Advanced Snippets",
+        "properties": {
+          "advanced-snippets.triggerKey": {
+            "type": "string",
+            "default": ">",
+            "description": "The key to trigger the snippet insertion."
+          },
+          "advanced-snippets.debug": {
+            "type": "boolean",
+            "default": false,
+            "description,": "Enable debug mode."
+          }
+        }
+      }
+    ],
     "jsonValidation": [
       {
-        "fileMatch": ".snippet.yaml",
+        "fileMatch": "*.snippet.yaml",
         "url": "./schemas/snippet.schema.json"
       }
     ]
@@ -191,6 +219,7 @@
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "add": "^2.0.6",
+    "cd": "^0.3.3",
     "chalk": "^4.1.2",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
@@ -200,7 +229,9 @@
     "jest": "^29.3.1",
     "jest-html-reporter": "^3.7.0",
     "jest-junit": "^15.0.0",
+    "jest-mock-extended": "^3.0.1",
     "lint-staged": "^13.1.0",
+    "memfs": "^3.4.13",
     "nock": "^13.3.0",
     "prettier": "^2.8.3",
     "rimraf": "^4.1.2",
@@ -209,6 +240,7 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
     "vsce": "^2.15.0",
+    "vscode-advanced-snippets": "/home/bruno/Code/Personal/vscode-extensions/vscode-advanced-snippets",
     "vscode-test": "^1.6.1"
   },
   "config": {

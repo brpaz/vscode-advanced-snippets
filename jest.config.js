@@ -22,6 +22,7 @@ const config = {
   testEnvironment: 'node',
   testPathIgnorePatterns: ['out'],
   collectCoverage: true,
+  collectCoverageFrom: ['src/**/*.ts'],
   coverageReporters: ['clover', 'json', 'lcov', ['text', { skipFull: true }]],
   coverageDirectory: './reports/coverage',
   transform: {

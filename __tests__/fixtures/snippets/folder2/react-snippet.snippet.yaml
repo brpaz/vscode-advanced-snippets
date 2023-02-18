@@ -1,0 +1,15 @@
+apiVersion: snippets.brunopaz.dev/v1
+kind: Snippet
+metadata:
+  uid: c1ba5bee-f9e9-4a1d-aa20-76997f15f052
+  name: React hello.
+spec:
+  body: |
+    console.log("Hello world!")
+  conditions:
+    language: javascript
+    filePatters:
+      - "**/*.js"
+    packages:
+      - name: react
+        format: npm

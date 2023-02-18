@@ -1,12 +1,14 @@
-import { PackageFormat, Snippet, SnippetFolder } from '../domain/snippet';
+import { PackageFormat, Snippet } from '../domain/snippet';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as yaml from 'yaml';
+import { SnippetFolder } from '../domain/folder';
 
 interface SnippetYamlFile {
   apiVersion: string;
   kind: string;
   metadata: {
+    uid: string;
     name: string;
   };
   spec: {
@@ -27,18 +29,21 @@ export interface LoadResult {
   snippets: Snippet[];
 }
 
-export interface SnippetsLoader {
+export interface SnippetsStorage {
   load(): LoadResult;
+  loadFile(filePath: string): Snippet;
   persist(snippets: Snippet): Snippet;
 }
 
-export class FileSnippetsLoader implements SnippetsLoader {
+export class FilesystemSnippetsStorage implements SnippetsStorage {
   constructor(private snippetsRoot: string) {}
 
   load(): LoadResult {
     const snippets: Snippet[] = [];
 
     const folderEntries = this.getFolders();
+
+    // TODO: load snippets in root folder
 
     const folders = folderEntries.map((folder) => {
       return new SnippetFolder(folder.name, path.join(this.snippetsRoot, folder.name));
@@ -57,18 +62,29 @@ export class FileSnippetsLoader implements SnippetsLoader {
     return { folders, snippets };
   }
 
+  loadFile(filePath: string): Snippet {
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`Snippet file with the path ${filePath} does not exist`);
+    }
+
+    const fileData: SnippetYamlFile = yaml.parse(fs.readFileSync(filePath, 'utf8'));
+
+    return this.mapSnippet(filePath, fileData);
+  }
+
   persist(snippet: Snippet): Snippet {
     const data: SnippetYamlFile = {
       apiVersion: 'vscode-snippets.brunopaz.dev/v1',
       kind: 'Snippet',
       metadata: {
+        uid: snippet.getId(),
         name: snippet.getName(),
       },
       spec: {
         body: snippet.getBody(),
         conditions: {
           language: snippet.getConditions().language,
-          file_patterns: snippet.getConditions().filePatterns,
+          file_patterns: snippet.getConditions().filePatterns || [],
           packages: snippet.getConditions().packages?.map((pkg) => {
             return {
               name: pkg.name,
@@ -79,7 +95,7 @@ export class FileSnippetsLoader implements SnippetsLoader {
       },
     };
 
-    fs.writeFileSync(snippet.getPath(), yaml.stringify(data));
+    fs.writeFileSync(snippet.getFilePath(), yaml.stringify(data));
 
     return snippet;
   }
@@ -103,25 +119,32 @@ export class FileSnippetsLoader implements SnippetsLoader {
 
       const fileData: SnippetYamlFile = yaml.parse(fs.readFileSync(snippetFilePath, 'utf8'));
 
-      const snippet = new Snippet(
-        fileData.metadata.name,
-        fileData.spec.body,
-        new SnippetFolder(path.basename(folderPath), folderPath),
-        {
-          language: fileData.spec.conditions.language,
-          filePatterns: fileData.spec.conditions.file_patterns,
-          packages: fileData.spec.conditions.packages?.map((pkg) => {
-            return {
-              name: pkg.name,
-              format: pkg.format as PackageFormat,
-            };
-          }),
-        },
-      );
+      const snippet = this.mapSnippet(snippetFilePath, fileData);
 
       snippets.push(snippet);
     }
 
     return snippets;
+  }
+
+  private mapSnippet(filePath: string, fileData: SnippetYamlFile): Snippet {
+    const folderPath = path.dirname(filePath);
+
+    return Snippet.create({
+      id: fileData.metadata.uid,
+      name: fileData.metadata.name,
+      body: fileData.spec.body,
+      folder: new SnippetFolder(path.basename(folderPath), folderPath),
+      conditions: {
+        language: fileData.spec.conditions.language,
+        filePatterns: fileData.spec.conditions.file_patterns || [],
+        packages: fileData.spec.conditions.packages?.map((pkg) => {
+          return {
+            name: pkg.name,
+            format: pkg.format as PackageFormat,
+          };
+        }),
+      },
+    });
   }
 }

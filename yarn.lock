@@ -2336,6 +2336,11 @@ caniuse-lite@^1.0.30001400:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001445.tgz#cf2d4eb93f2bcdf0310de9dd6d18be271bc0b447"
   integrity sha512-8sdQIdMztYmzfTMO6KfLny878Ln9c2M0fc7EH60IjlP4Dc4PiCy7K2Vl3ITmWgOyPgVQKa5x+UP/KqFsxj4mBg==
 
+cd@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/cd/-/cd-0.3.3.tgz#108ecb57bff93b96b9115c54573cfef3008ef94d"
+  integrity sha512-X2y0Ssu48ucdkrNgCdg6k3EZWjWVy/dsEywUUTeZEIW31f3bQfq65Svm+TzU1Hz+qqhdmyCdjGhUvRsSKHl/mw==
+
 chainsaw@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/chainsaw/-/chainsaw-0.1.0.tgz#5eab50b28afe58074d0d58291388828b5e5fbc98"
@@ -3200,6 +3205,11 @@ fs-minipass@^2.0.0:
   dependencies:
     minipass "^3.0.0"
 
+fs-monkey@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/fs-monkey/-/fs-monkey-1.0.3.tgz#ae3ac92d53bb328efe0e9a1d9541f6ad8d48e2d3"
+  integrity sha512-cybjIfiiE+pTWicSCLFHSrXZ6EilF30oh91FDP9S2B051prEa7QWfrVTQm10/dDpswBDXZugPa1Ogu8Yh+HV0Q==
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -3868,6 +3878,13 @@ jest-message-util@^29.4.1:
     slash "^3.0.0"
     stack-utils "^2.0.3"
 
+jest-mock-extended@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/jest-mock-extended/-/jest-mock-extended-3.0.1.tgz#5f109d5e1da62851ffc9126a01e83cd6470b810b"
+  integrity sha512-RF4Ow8pXvbRuEcCTj56oYHmig5311BSFvbEGxPNYL51wGKGu93MvVQgx0UpFmjqyBXIcElkZo2Rke88kR1iSKQ==
+  dependencies:
+    ts-essentials "^7.0.3"
+
 jest-mock@^29.3.1:
   version "29.3.1"
   resolved "https://registry.yarnpkg.com/jest-mock/-/jest-mock-29.3.1.tgz#60287d92e5010979d01f218c6b215b688e0f313e"
@@ -4392,6 +4409,13 @@ mdurl@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
   integrity sha512-/sKlQJCBYVY9Ers9hqzKou4H6V5UWc/M59TH2dvkt+84itfnq7uFOMLpOiOS4ujvHP4etln18fmIxA5R5fll0g==
+
+memfs@^3.4.13:
+  version "3.4.13"
+  resolved "https://registry.yarnpkg.com/memfs/-/memfs-3.4.13.tgz#248a8bd239b3c240175cd5ec548de5227fc4f345"
+  integrity sha512-omTM41g3Skpvx5dSYeZIbXKcXoAVc/AoMNwn9TKx++L/gaen/+4TTttmu8ZSch5vfVJ8uJvGbroTsIlslRg6lg==
+  dependencies:
+    fs-monkey "^1.0.3"
 
 meow@^8.0.0:
   version "8.1.2"
@@ -5711,6 +5735,11 @@ trim-newlines@^3.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-3.0.1.tgz#260a5d962d8b752425b32f3a7db0dcacd176c144"
   integrity sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==
 
+ts-essentials@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-7.0.3.tgz#686fd155a02133eedcc5362dc8b5056cde3e5a38"
+  integrity sha512-8+gr5+lqO3G84KdiTSMRLtuyJ+nTBVRKuCrK4lidMPdVeEp0uqC875uE5NMcaA7YYMN7XsNiFQuMvasF8HT/xQ==
+
 ts-jest@^29.0.5:
   version "29.0.5"
   resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.0.5.tgz#c5557dcec8fe434fcb8b70c3e21c6b143bfce066"
@@ -5992,6 +6021,16 @@ vsce@^2.15.0:
     xml2js "^0.4.23"
     yauzl "^2.3.1"
     yazl "^2.2.2"
+
+"vscode-advanced-snippets@file:.":
+  version "0.1.0"
+  dependencies:
+    glob-promise "^6.0.2"
+    node-fetch "2"
+    node-fetch-cache "^3.0.5"
+    picomatch "^2.3.1"
+    uuid "^9.0.0"
+    yaml "^2.2.1"
 
 vscode-test@^1.6.1:
   version "1.6.1"

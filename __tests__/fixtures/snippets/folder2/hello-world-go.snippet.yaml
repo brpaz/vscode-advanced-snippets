@@ -1,0 +1,10 @@
+apiVersion: snippets.brunopaz.dev/v1
+kind: Snippet
+metadata:
+  uid: 2db136a1-71cc-4065-8994-351673224c41
+  name: Hello world in Go
+spec:
+  body: |
+    fmt.Println("Hello world!")
+  conditions:
+    language: go

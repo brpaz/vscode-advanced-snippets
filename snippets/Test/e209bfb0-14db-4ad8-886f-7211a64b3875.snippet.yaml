@@ -1,0 +1,26 @@
+apiVersion: vscode-snippets.brunopaz.dev/v1
+kind: Snippet
+metadata:
+  uid: e209bfb0-14db-4ad8-886f-7211a64b3875
+  name: test 6
+spec:
+  body: |
+    {
+      "contributes": {
+        "commands": [
+          {
+            "command": "myExtension.openFile",
+            "title": "Open File",
+            "arguments": [
+              {
+                "type": "string",
+                "description": "The file path to open"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  conditions:
+    language: json
+    file_patterns: []

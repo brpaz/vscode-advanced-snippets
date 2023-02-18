@@ -1,11 +1,8 @@
 import { window } from 'vscode';
-import SnippetsTreeDataProvider from '../provider/treeViewProvider';
-import SnippetsRepository from '../services/snippet.repository';
+import { SnippetsRepository } from '../domain/repository';
+
 export default class CreateFolderCommand {
-  constructor(
-    private snippetsRepository: SnippetsRepository,
-    private snippetsTreeDataProvider: SnippetsTreeDataProvider,
-  ) {}
+  constructor(private snippetsRepository: SnippetsRepository) {}
 
   async execute() {
     const folderName = await window.showInputBox({
@@ -29,8 +26,6 @@ export default class CreateFolderCommand {
     }
 
     this.snippetsRepository.createFolder(folderName);
-    this.snippetsTreeDataProvider.refresh();
-
     window.showInformationMessage(`Folder ${folderName} was created successfully`);
   }
 }

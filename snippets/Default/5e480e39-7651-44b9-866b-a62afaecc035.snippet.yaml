@@ -1,0 +1,26 @@
+apiVersion: vscode-snippets.brunopaz.dev/v1
+kind: Snippet
+metadata:
+  uid: 5e480e39-7651-44b9-866b-a62afaecc035
+  name: abc
+spec:
+  body: import * as vscode from 'vscode';  // create a new TextEditorEdit object
+    const editor = vscode.window.activeTextEditor; if (!editor) {     return; }
+    const edit = new vscode.WorkspaceEdit();  // create a new text area input
+    box const snippetContentBox = vscode.window.createInputBox();
+    snippetContentBox.prompt = 'Enter the snippet content';
+    snippetContentBox.placeholder = 'Paste your snippet content here';  //
+    configure the input box to show multiple lines of text
+    snippetContentBox.multiline = true; snippetContentBox.rows = 10;  // show
+    the input box and wait for user input const snippetContent = await new
+    Promise<string>((resolve) =>
+    {     snippetContentBox.show();     snippetContentBox.onDidAccept(() =>
+    {         resolve(snippetContentBox.value);         snippetContentBox.hide();     });
+    });  // apply the user's snippet content to the editor const
+    snippetContentLines = snippetContent.split('\n');
+    edit.insert(editor.document.uri, editor.selection.active,
+    snippetContentLines.join('\n'));  // apply the edit to the document and save
+    it await vscode.workspace.applyEdit(edit); await editor.document.save();
+  conditions:
+    language: typescript
+    file_patterns: []

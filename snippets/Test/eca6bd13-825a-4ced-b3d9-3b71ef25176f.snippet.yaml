@@ -1,0 +1,17 @@
+apiVersion: vscode-snippets.brunopaz.dev/v1
+kind: Snippet
+metadata:
+  uid: eca6bd13-825a-4ced-b3d9-3b71ef25176f
+  name: test 5
+spec:
+  body: "const jsonString = '{ \"contributes\": { \"commands\": [ { \"command\":
+    \"myExtension.openFile\", \"title\": \"Open File\", \"arguments\": [ {
+    \"type\": \"string\", \"description\": \"The file path to open\" } ] } ] }
+    }';  const parsedJson = JSON.parse(jsonString);  const formattedJson =
+    JSON.stringify(parsedJson, null, 2)   .replace(/\\\\r\\\\n|\\\\n/g,
+    '\\n')   .replace(/([\\s|\\t]*\"[^\"]+\":
+    )|(,?\\n[\\s|\\t]*\\])|(,?\\n[\\s|\\t]*\\}([,\\n\\s]*\\})?)/g,
+    '$&\\n')   .replace(/\\n\\s*\\n/g, '\\n');  console.log(formattedJson);"
+  conditions:
+    language: abap
+    file_patterns: []

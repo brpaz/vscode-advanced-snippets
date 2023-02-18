@@ -1,14 +1,13 @@
 import { window } from 'vscode';
-import { SnippetFolder } from '../domain/snippet';
+import { SnippetFolder } from '../domain/folder';
+import { SnippetsRepository } from '../domain/repository';
 import { SnippetTreeItem } from '../provider/treeItem';
-import SnippetsTreeDataProvider from '../provider/treeViewProvider';
-import SnippetsRepository from '../services/snippet.repository';
 
+/**
+ * Command to delete a snippet folder
+ */
 export default class DeleteFolderCommand {
-  constructor(
-    private readonly snippetsRespository: SnippetsRepository,
-    private readonly snippetsDataProvider: SnippetsTreeDataProvider,
-  ) {}
+  constructor(private readonly snippetsRespository: SnippetsRepository) {}
   async execute(item: SnippetTreeItem) {
     const folder = item.element as SnippetFolder;
 
@@ -20,8 +19,6 @@ export default class DeleteFolderCommand {
 
     if (selection === 'Yes') {
       this.snippetsRespository.deleteFolder(folder);
-      this.snippetsDataProvider.refresh();
-
       window.showInformationMessage(`Folder ${folder.getName()} was deleted successfully`);
     }
   }

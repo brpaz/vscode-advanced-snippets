@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import SnippetsRepository from '../services/snippet.repository';
+import SnippetsFileSystemRepository from '../services/snippetsRepository';
 
 export class CompletionItemProvider implements vscode.CompletionItemProvider {
-  constructor(private readonly snippetsRepository: SnippetsRepository) {}
+  constructor(private readonly snippetsRepository: SnippetsFileSystemRepository) {}
   provideCompletionItems(
     document: vscode.TextDocument,
     position: vscode.Position,

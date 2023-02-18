@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { Commands } from '../commands/commands';
+import { SnippetFolder } from '../domain/folder';
 
-import { Snippet, SnippetFolder } from '../domain/snippet';
+import { Snippet } from '../domain/snippet';
 
 export class SnippetTreeItem extends vscode.TreeItem {
   constructor(readonly element: Snippet | SnippetFolder) {
@@ -10,20 +10,7 @@ export class SnippetTreeItem extends vscode.TreeItem {
     this.contextValue = element instanceof SnippetFolder ? 'snippetFolder' : 'snippetFile';
     this.collapsibleState =
       element instanceof SnippetFolder
-        ? vscode.TreeItemCollapsibleState.Collapsed
+        ? vscode.TreeItemCollapsibleState.Expanded
         : vscode.TreeItemCollapsibleState.None;
-
-    if (element instanceof SnippetFolder) {
-      this.command = {
-        title: 'Delete Folder',
-        command: Commands.DeleteFolder,
-        arguments: [element],
-      };
-    }
-
-    // TODO actions
-    // edit snippet -> open yaml on editor.
-    // delete snippet
-    // folder -> create snippet.
   }
 }
