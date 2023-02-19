@@ -226,7 +226,7 @@
   "scripts": {
     "prepare": "husky install",
     "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ && cp -R schemas out/schemas",
     "lint": "eslint src --ext ts",
     "lint:fix": "eslint src --ext ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
