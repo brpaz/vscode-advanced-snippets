@@ -238,6 +238,12 @@
     "package": "rimraf dist && mkdir -p dist && vsce package -o dist/",
     "release": "vsce publish -i dist/*.vsix"
   },
+  "dependencies": {
+    "glob-promise": "^6.0.2",
+    "picomatch": "^2.3.1",
+    "uuid": "^9.0.0",
+    "yaml": "^2.2.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
@@ -274,9 +280,7 @@
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
-    "vsce": "^2.15.0",
-    "vscode-advanced-snippets": "/home/bruno/Code/Personal/vscode-extensions/vscode-advanced-snippets",
-    "vscode-test": "^1.6.1"
+    "vsce": "^2.15.0"
   },
   "config": {
     "commitizen": {
@@ -287,13 +291,5 @@
     "suiteNameTemplate": "{filepath}",
     "classNameTemplate": "{classname}",
     "titleTemplate": "{title}"
-  },
-  "dependencies": {
-    "glob-promise": "^6.0.2",
-    "node-fetch": "2",
-    "node-fetch-cache": "^3.0.5",
-    "picomatch": "^2.3.1",
-    "uuid": "^9.0.0",
-    "yaml": "^2.2.1"
   }
 }
