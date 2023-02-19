@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
-import SnippetsFileSystemRepository from '../services/snippetsRepository';
 import { Snippet } from '../domain/snippet';
-import { SnippetTreeItem } from './treeItem';
+import { SnippetTreeItem } from '../ui/snippetTreeItem';
 import { SnippetEventListener } from '../domain/events';
 import { SnippetFolder } from '../domain/folder';
+import { SnippetsRepository } from '../domain/repository';
 
 export default class SnippetsTreeDataProvider
   implements vscode.TreeDataProvider<SnippetTreeItem>, SnippetEventListener
@@ -13,7 +13,7 @@ export default class SnippetsTreeDataProvider
   readonly onDidChangeTreeData: vscode.Event<SnippetTreeItem | undefined | null | void> =
     this._onDidChangeTreeData.event;
 
-  constructor(private snippetRepository: SnippetsFileSystemRepository) {}
+  constructor(private snippetRepository: SnippetsRepository) {}
 
   getTreeItem(element: SnippetTreeItem): vscode.TreeItem {
     return element;
@@ -32,7 +32,7 @@ export default class SnippetsTreeDataProvider
   }
 
   private getRootFolders(): SnippetTreeItem[] {
-    const folders = this.snippetRepository.getFolders();
+    const folders = this.snippetRepository.getFolders().sort((a, b) => a.getName().localeCompare(b.getName()));
     const treeItems = folders.map((folder: SnippetFolder) => {
       return new SnippetTreeItem(folder);
     });
@@ -40,7 +40,7 @@ export default class SnippetsTreeDataProvider
   }
 
   private getSnippetsForFolder(folderName: string): SnippetTreeItem[] {
-    const snippets = this.snippetRepository.getAll();
+    const snippets = this.snippetRepository.getAll().sort((a, b) => a.getName().localeCompare(b.getName()));
     const snippetsForFolder = snippets.filter((snippet) => snippet.getFolder()?.getName() === folderName);
 
     const treeItems = snippetsForFolder.map((snippet) => {

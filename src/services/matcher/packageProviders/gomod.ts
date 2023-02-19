@@ -1,5 +1,5 @@
-import { fs } from 'memfs';
-import path = require('path');
+import * as path from 'path';
+import * as fs from 'fs';
 import { PackageFormat } from '../../../domain/snippet';
 import { PackageProvider } from './index';
 
@@ -8,7 +8,7 @@ export default class GomodProvider implements PackageProvider {
     return PackageFormat.GOMOD;
   }
 
-  hasPackage(currentFilePath: string, workspaceRootDir: string, name: string): boolean {
+  hasPackage(name: string, currentFilePath: string, workspaceRootDir: string): boolean {
     const goModPath = this.findGoMod(path.dirname(currentFilePath), workspaceRootDir);
 
     if (!goModPath) {

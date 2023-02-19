@@ -1,4 +1,4 @@
-import { window, workspace, MessageItem } from 'vscode';
+import { window, workspace } from 'vscode';
 import { SnippetFolder } from '../domain/folder';
 import { SnippetsRepository } from '../domain/repository';
 import { Snippet } from '../domain/snippet';

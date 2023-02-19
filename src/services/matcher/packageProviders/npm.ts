@@ -4,7 +4,7 @@ import { PackageFormat } from '../../../domain/snippet';
 import { PackageProvider } from './index';
 
 export default class NpmProvider implements PackageProvider {
-  public hasPackage(currentFilePath: string, workspaceRootDir: string, name: string): boolean {
+  public hasPackage(name: string, currentFilePath: string, workspaceRootDir: string): boolean {
     const packageJsonPath = this.findPackageJSON(path.dirname(currentFilePath), workspaceRootDir);
 
     if (!packageJsonPath) {

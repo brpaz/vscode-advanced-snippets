@@ -30,7 +30,7 @@ export class MatcherService implements Matcher {
   /**
    *  Filters the snippets based on whether the document meets their package requirements.
    */
-  filterByPackage(document: TextDocument, filteredSnippets: Snippet[], rootDir: string): any {
+  filterByPackage(document: TextDocument, filteredSnippets: Snippet[], rootDir: string): Snippet[] {
     return filteredSnippets.filter((snippet) => {
       const packagePatterns = snippet.getConditions().packages;
       if (!packagePatterns) {
@@ -46,8 +46,8 @@ export class MatcherService implements Matcher {
 
   private filterByFilePattern(document: TextDocument, filteredSnippets: Snippet[]): Snippet[] {
     return filteredSnippets.filter((snippet) => {
-      const patterns = snippet.getConditions().filePatterns;
-      if (!patterns) {
+      const patterns = snippet.getConditions().filePatterns || [];
+      if (patterns.length === 0) {
         return true;
       }
 

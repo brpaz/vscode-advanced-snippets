@@ -43,8 +43,6 @@ export class FilesystemSnippetsStorage implements SnippetsStorage {
 
     const folderEntries = this.getFolders();
 
-    // TODO: load snippets in root folder
-
     const folders = folderEntries.map((folder) => {
       return new SnippetFolder(folder.name, path.join(this.snippetsRoot, folder.name));
     });
@@ -102,6 +100,10 @@ export class FilesystemSnippetsStorage implements SnippetsStorage {
 
   private getFolders(): fs.Dirent[] {
     const files = fs.readdirSync(this.snippetsRoot, { withFileTypes: true });
+
+    if (files.length === 0) {
+      return [];
+    }
 
     return files.filter((files) => files.isDirectory());
   }

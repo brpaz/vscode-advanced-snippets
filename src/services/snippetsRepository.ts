@@ -153,7 +153,7 @@ export default class SnippetsFileSystemRepository implements SnippetsRepository 
    * @returns
    */
   deleteFolder(folder: SnippetFolder) {
-    fs.rmdirSync(folder.getPath());
+    fs.rmSync(folder.getPath(), { force: true, recursive: true });
 
     const index = this.folders.findIndex((item) => item.getPath() === folder.getPath());
 

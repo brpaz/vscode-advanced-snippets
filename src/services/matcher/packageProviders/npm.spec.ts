@@ -31,22 +31,22 @@ describe('NpmProvider', () => {
 
   describe('hasPackage', () => {
     it('returns true if package is a direct dependency', () => {
-      const result = provider.hasPackage('/project1/src/index.js', '/project1', 'my-dependency');
+      const result = provider.hasPackage('my-dependency', '/project1/src/index.js', '/project1');
       expect(result).toBe(true);
     });
 
     it('returns true if package is a dev dependency', () => {
-      const result = provider.hasPackage('/project2/src/index.js', '/project2', 'my-dev-dependency');
+      const result = provider.hasPackage('my-dev-dependency', '/project2/src/index.js', '/project2');
       expect(result).toBe(true);
     });
 
     it('returns false if package is not a dependency', () => {
-      const result = provider.hasPackage('/project1/src/index.js', '/project1', 'not-a-dependency');
+      const result = provider.hasPackage('not-a-dependency', '/project1/src/index.js', '/project1');
       expect(result).toBe(false);
     });
 
     it('returns false if no package.json file is found', () => {
-      const result = provider.hasPackage('/project3/src/index.js', '/project3', 'my-dependency');
+      const result = provider.hasPackage('my-dependency', '/project3/src/index.js', '/project3');
       expect(result).toBe(false);
     });
   });

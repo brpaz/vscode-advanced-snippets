@@ -1,10 +1,10 @@
 import { ExtensionContext, commands } from 'vscode';
 import { SnippetFolder } from '../domain/folder';
 import { Snippet } from '../domain/snippet';
-import { SnippetTreeItem } from '../provider/treeItem';
+import { SnippetTreeItem } from '../ui/snippetTreeItem';
 import SnippetsTreeDataProvider from '../provider/treeViewProvider';
 import SnippetsFileSystemRepository from '../services/snippetsRepository';
-import { MatcherService } from '../services/matcher/snippets.matcher';
+import { MatcherService } from '../services/matcher/snippetsMatcher';
 import CreateFolderCommand from './createFolder';
 import CreateSnippetCommand from './createSnippet';
 import CreateSnippetFromSelectionCommand from './createSnippetFromSelection';
@@ -14,7 +14,6 @@ import EditSnippetCommand from './editSnippet';
 import InsertSnippetCommand from './insertSnippet';
 import SearchSnippetsCommand from './searchSnippets';
 import MoveSnippetCommand from './moveSnippet';
-import PackageProviderFactory from '../services/matcher/packageProviders/factory';
 
 export enum Commands {
   CreateSnippet = `advanced-snippets.createSnippet`,
@@ -32,6 +31,7 @@ export enum Commands {
 export const registerCommands = (
   context: ExtensionContext,
   snippetsRepository: SnippetsFileSystemRepository,
+  snippetsMatcher: MatcherService,
   snippetsTreeDataProvider: SnippetsTreeDataProvider,
 ): void => {
   const createSnippetFromSelectionCommand = new CreateSnippetFromSelectionCommand(snippetsRepository);
@@ -45,9 +45,7 @@ export const registerCommands = (
 
   const editSnippetCommand = new EditSnippetCommand(snippetsRepository);
 
-  const packageProviderFactory = new PackageProviderFactory();
-  const searchService = new MatcherService(snippetsRepository, packageProviderFactory);
-  const searchSnippetsCommand = new SearchSnippetsCommand(searchService);
+  const searchSnippetsCommand = new SearchSnippetsCommand(snippetsMatcher);
 
   const moveSnippetCommand = new MoveSnippetCommand(snippetsRepository);
 

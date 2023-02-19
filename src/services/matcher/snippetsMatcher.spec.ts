@@ -1,4 +1,4 @@
-import { MatcherService } from './snippets.matcher';
+import { MatcherService } from './snippetsMatcher';
 import { SnippetsRepository } from '../../domain/repository';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { PackageFormat, Snippet } from '../../domain/snippet';

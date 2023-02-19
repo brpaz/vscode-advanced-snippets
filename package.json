@@ -46,7 +46,7 @@
         {
           "id": "snippets-explorer",
           "title": "Advanced Snippets",
-          "icon": "resources/icons/activitybar.svg"
+          "icon": "$(symbol-snippet)"
         }
       ]
     },
@@ -74,19 +74,23 @@
         },
         {
           "command": "advanced-snippets.insertSnippet",
-          "when": "view == snippetsTreeView && viewItem == snippetFile"
+          "when": "view == snippetsTreeView && viewItem == snippetFile",
+          "group": "snippet@1"
         },
         {
           "command": "advanced-snippets.editSnippet",
-          "when": "view == snippetsTreeView && viewItem == snippetFile"
+          "when": "view == snippetsTreeView && viewItem == snippetFile",
+          "group": "snippet@2"
         },
         {
           "command": "advanced-snippets.moveSnippet",
-          "when": "view == snippetsTreeView && viewItem == snippetFile"
+          "when": "view == snippetsTreeView && viewItem == snippetFile",
+          "group": "snippet@3"
         },
         {
           "command": "advanced-snippets.deleteSnippet",
-          "when": "view == snippetsTreeView && viewItem == snippetFile"
+          "when": "view == snippetsTreeView && viewItem == snippetFile",
+          "group": "snippet@4"
         }
       ],
       "editor/context": [
@@ -95,6 +99,40 @@
           "when": "editorHasSelection",
           "group": "2_workspace"
         }
+      ],
+      "commandPalette": [
+        {
+          "command": "advanced-snippets.insertSnippet",
+          "when": "false"
+        },
+        {
+          "command": "advanced-snippets.createFolder",
+          "when": "false"
+        },
+        {
+          "command": "advanced-snippets.deleteFolder",
+          "when": "false"
+        },
+        {
+          "command": "advanced-snippets.createSnippetFromSelection",
+          "when": "false"
+        },
+        {
+          "command": "advanced-snippets.createSnippet",
+          "when": "false"
+        },
+        {
+          "command": "advanced-snippets.editSnippet",
+          "when": "false"
+        },
+        {
+          "command": "advanced-snippets.moveSnippet",
+          "when": "false"
+        },
+        {
+          "command": "advanced-snippets.deleteSnippet",
+          "when": "false"
+        }
       ]
     },
     "commands": [
@@ -102,29 +140,25 @@
         "command": "advanced-snippets.refreshTreeView",
         "title": "Refresh Snippets",
         "category": "Advanced Snippets",
-        "icon": "$(refresh)",
-        "hidden": true
+        "icon": "$(refresh)"
       },
       {
         "command": "advanced-snippets.createFolder",
         "title": "Create Folder",
         "category": "Advanced Snippets",
-        "icon": "$(new-folder)",
-        "hidden": true
+        "icon": "$(new-folder)"
       },
       {
         "command": "advanced-snippets.deleteFolder",
         "title": "Delete Folder",
         "category": "Advanced Snippets",
-        "icon": "$(trash)",
-        "hidden": true
+        "icon": "$(trash)"
       },
       {
         "command": "advanced-snippets.createSnippet",
         "title": "Create Snippet",
         "category": "Advanced Snippets",
-        "icon": "$(new-file)",
-        "hidden": true
+        "icon": "$(new-file)"
       },
       {
         "command": "advanced-snippets.createSnippetFromSelection",
@@ -141,22 +175,19 @@
         "command": "advanced-snippets.moveSnippet",
         "title": "Move Snippet",
         "category": "Advanced Snippets",
-        "icon": "$(move)",
-        "hidden": true
+        "icon": "$(move)"
       },
       {
         "command": "advanced-snippets.deleteSnippet",
         "title": "Delete Snippet",
         "category": "Advanced Snippets",
-        "icon": "$(delete)",
-        "hidden": true
+        "icon": "$(delete)"
       },
       {
         "command": "advanced-snippets.insertSnippet",
         "title": "Insert Snippet",
         "category": "Advanced Snippets",
-        "icon": "$(add)",
-        "hidden": true
+        "icon": "$(add)"
       },
       {
         "command": "advanced-snippets.searchSnippets",
@@ -172,6 +203,10 @@
             "type": "string",
             "default": ">",
             "description": "The key to trigger the snippet insertion."
+          },
+          "advanced-snippets.snippetsRoot": {
+            "type": "string",
+            "description": "The root folder for the snippets. By default it will a folder 'snippets' inside the extension folder."
           },
           "advanced-snippets.debug": {
             "type": "boolean",

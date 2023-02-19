@@ -1,7 +1,7 @@
 import { window } from 'vscode';
 import { SnippetFolder } from '../domain/folder';
 import { SnippetsRepository } from '../domain/repository';
-import { SnippetTreeItem } from '../provider/treeItem';
+import { SnippetTreeItem } from '../ui/snippetTreeItem';
 
 /**
  * Command to delete a snippet folder

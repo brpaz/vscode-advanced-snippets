@@ -17,17 +17,17 @@ describe('GomodProvider', () => {
 
   describe('hasPackage', () => {
     it('returns true if package is a direct dependency', () => {
-      const result = provider.hasPackage('/project1/main.go', '/project1', 'dependency');
+      const result = provider.hasPackage('dependency', '/project1/main.go', '/project1');
       expect(result).toBe(true);
     });
 
     it('returns true if package is a direct in an upper directory', () => {
-      const result = provider.hasPackage('/project1/src/internal/main.go', '/project1', 'dependency');
+      const result = provider.hasPackage('dependency', '/project1/src/internal/main.go', '/project1');
       expect(result).toBe(true);
     });
 
     it('returns false if gomod doesn´t include dependency', () => {
-      const result = provider.hasPackage('/project2/src/main.go', '/project2', 'unkdnown-dependency');
+      const result = provider.hasPackage('unkdnown-dependency', '/project2/src/main.go', '/project2');
       expect(result).toBe(false);
     });
   });

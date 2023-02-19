@@ -50,8 +50,16 @@ export class Snippet {
     return this.name;
   }
 
+  public setName(name: string): void {
+    this.name = name;
+  }
+
   public getBody(): string {
     return this.body;
+  }
+
+  public setBody(body: string): void {
+    this.body = body;
   }
 
   public getConditions(): SnippetConditions {
