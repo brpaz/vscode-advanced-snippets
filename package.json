@@ -2,7 +2,7 @@
   "name": "vscode-advanced-snippets",
   "displayName": "Snippets Plus",
   "description": "An improved snippets management experience for VSCode",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "icon": "icon.png",
   "author": {
     "name": "Bruno Paz",
