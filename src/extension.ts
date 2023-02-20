@@ -9,6 +9,7 @@ import { CompletionItemProvider } from './provider/completionProvider';
 import { registerCommands } from './commands';
 import { MatcherService } from './services/matcher/snippetsMatcher';
 import PackageProviderFactory from './services/matcher/packageProviders/factory';
+import { initializeStorage } from './utils/storage';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -18,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
   const config = vscode.workspace.getConfiguration(EXTENSION_ID);
   const completionTriggerKey = config.get<string>(CONFIG_KEY_TRIGGER_KEY) || DEFAULT_TRIGGER_KEY;
 
-  const snippetsPath = config.get<string>(CONFIG_KEY_SNIPPETS_PATH) || `${context.extensionPath}/snippets`;
+  const snippetsPath = initializeStorage(config, context);
 
   const snippetsRepository = new SnippetsFileSystemRepository(
     snippetsPath,

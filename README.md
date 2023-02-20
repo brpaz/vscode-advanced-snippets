@@ -3,7 +3,7 @@
 > A better way to manage [VSCode](http://code.visualstudio.com) code snippets.
 
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brpaz/vscode-advanced-snippets/CI?style=for-the-badge)]()
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brpaz/vscode-advanced-snippets/CI?style=for-the-badge)](https://github.com/vscode-advanced-snippets/workflows)
 [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/brpaz.vscode-advanced-snippets?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=brpaz.advanced-snippets)
 [![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/b?style=for-the-badge)](https://img.shields.io/visual-studio-marketplace/i/brpaz.advanced-snippets?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=brpaz.vscode-advanced-snippets)
 
@@ -37,8 +37,11 @@ This extensions aims to solve this issues, and making managing snippets inside V
 Launch VS Code Quick Open (`Ctrl+P`), paste the following command, and press enter.
 
 ```sh
-ext install brpaz.vscode-advanced.snippets
+ext install brpaz.vscode-advanced-snippets
 ```
+
+
+
 
 ## Usage
 
@@ -46,7 +49,7 @@ After installing this extension, a new item will be placed on your editor Activi
 
 ![activity bar](./docs/assets/activitybar.png)
 
-A "Default" folder will be created and you can start creating snippets right away.
+A "Default" folder will be created and you can start creating snippets right away. If your want to find your snippets in Disk, they are stored in `~/.config/Code/User/globalStorage/brpaz.vscode-advanced-snippets/snippets`.
 
 ## The anatomy of a snippet file.
 
