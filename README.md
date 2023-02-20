@@ -3,7 +3,7 @@
 > A better way to manage [VSCode](http://code.visualstudio.com) code snippets.
 
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brpaz/vscode-advanced-snippets/CI?style=for-the-badge)](https://github.com/vscode-advanced-snippets/workflows)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brpaz/vscode-advanced-snippets/CI?style=for-the-badge)](b.com/brpaz/vscode-advanced-snippets/actions/workflows/ci.yml)
 [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/brpaz.vscode-advanced-snippets?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=brpaz.advanced-snippets)
 [![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/b?style=for-the-badge)](https://img.shields.io/visual-studio-marketplace/i/brpaz.advanced-snippets?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=brpaz.vscode-advanced-snippets)
 
