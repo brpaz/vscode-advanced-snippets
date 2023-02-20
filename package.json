@@ -258,7 +258,7 @@
     "@types/uuid": "^9.0.0",
     "@types/vscode": "^1.52.0",
     "@types/yaml": "^1.9.7",
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.48.1",
     "add": "^2.0.6",
     "cd": "^0.3.3",
