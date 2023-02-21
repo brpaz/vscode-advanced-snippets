@@ -193,6 +193,11 @@
         "command": "advanced-snippets.searchSnippets",
         "title": "Search Snippets",
         "category": "Advanced Snippets"
+      },
+      {
+        "command": "advanced-snippets.viewSnippet",
+        "title": "View Snippet",
+        "category": "Advanced Snippets"
       }
     ],
     "configuration": [

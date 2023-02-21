@@ -14,6 +14,7 @@ import EditSnippetCommand from './editSnippet';
 import InsertSnippetCommand from './insertSnippet';
 import SearchSnippetsCommand from './searchSnippets';
 import MoveSnippetCommand from './moveSnippet';
+import ViewSnippetCommand from './viewSnippet';
 
 export enum Commands {
   CreateSnippet = `advanced-snippets.createSnippet`,
@@ -26,6 +27,7 @@ export enum Commands {
   CreateFolder = `advanced-snippets.createFolder`,
   DeleteFolder = `advanced-snippets.deleteFolder`,
   RefreshTreeView = `advanced-snippets.refreshTreeView`,
+  ViewSnippet = `advanced-snippets.viewSnippet`,
 }
 
 export const registerCommands = (
@@ -48,6 +50,8 @@ export const registerCommands = (
   const searchSnippetsCommand = new SearchSnippetsCommand(snippetsMatcher);
 
   const moveSnippetCommand = new MoveSnippetCommand(snippetsRepository);
+
+  const viewSnippetCommand = new ViewSnippetCommand(snippetsRepository);
 
   commands.registerCommand(Commands.RefreshTreeView, async () => {
     snippetsRepository.loadData();
@@ -95,8 +99,14 @@ export const registerCommands = (
   );
 
   context.subscriptions.push(
-    commands.registerCommand(Commands.EditSnippet, async (treeItem: SnippetTreeItem) => {
-      const snippet = treeItem.element as Snippet;
+    commands.registerCommand(Commands.EditSnippet, async (item: unknown) => {
+      let snippet;
+      if (item instanceof SnippetTreeItem) {
+        snippet = item.element as Snippet;
+      } else {
+        snippet = item as Snippet;
+      }
+
       return await editSnippetCommand.execute(snippet);
     }),
   );
@@ -111,6 +121,12 @@ export const registerCommands = (
   context.subscriptions.push(
     commands.registerCommand(Commands.SearchSnippets, async () => {
       return await searchSnippetsCommand.execute();
+    }),
+  );
+
+  context.subscriptions.push(
+    commands.registerCommand(Commands.ViewSnippet, async () => {
+      return await viewSnippetCommand.execute();
     }),
   );
 };
